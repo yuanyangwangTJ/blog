@@ -21,3 +21,27 @@ $$\left[x\right] \leq x < \left[x\right] + 1.$$
 * **Theroem**: If $k + 1$ or more objects are placed into k boxes, then at least one box contains two or more of the objects.  
 #### Dirichlet's Approximation Theorem
 * **Theroem**: If $\alpha$ is a real number and $n$ is a positive integer, then there exist integers $a$ and $b$ with $1 \leq a \leq n$ such that $\left| a\alpha - b \right| < 1/n$.
+
+### Sequences
+A *sequence* ${a_n}$ is a list of numbers $a_1, a_2, a_3, \ldots $ We will consider many particular integer sequences in our study of number theory.
+#### geometric progression（几何级数）
+* **Definition**: A *geometric progression* is a sequence of the form $a, ar, ar^2, ar^3, \ldots , ar^k, \ldots$, where $a$, the *initial term*, and $r$, the *common ratio*, are real numbers.
+#### countable and uncountable
+* **Definition**: A set is ***countable*** if it is finite or it is infinite and there exists a one-to-one correspondence between the set of positive integers and the set. A set that is not countable is called *uncountable*.
+
+## 1.2 Sums and Products
+The following notation represents the sum of the numbers $a_1, a_2, \ldots, a_n$:
+$$\sum_{k=1}^na_k = a_1 + a_2 + \cdots + a_n.$$  
+The product of the numbers $a_1, a_2, \ldots, a_n$ is denoted by
+$$\prod_{j=1}^na_j = a_1 a_2\cdots a_n.$$  
+Then $n!$(read as "n factorial"). In terms of product notation, we have $n!=\prod_{j=1}^nj$.
+
+##1.3 Mathematical Induction
+#### The Principle of Mathematical Induction  
+* **Theorem**: A set of positive integers that contains the integer $1$, and that has the property that, if it contains the integer $k$, then it also contains $k+1$, must be the set of all positive integers.
+#### The Second Principle of Mathematical Induction
+* **Theorem**: A set of positive integers that contains the integer $1$, and that has the property that, for every positive integer $n$, if it contains all the positive integers $1,2,\ldots,n$, then it also contains the integer $n+1$, must be the set of all positive integers.  
+### Recursive Definition
+* **Definition**: We say that the function $f$ is ***ddefined recursively*** if the value of $f$ at $1$ is specified and if for each positive integer $n$ a rule is provided for determining $f(n+1)$ from $f(n)$.
+
+
