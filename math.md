@@ -44,4 +44,21 @@ Then $n!$(read as "n factorial"). In terms of product notation, we have $n!=\pro
 ### Recursive Definition
 * **Definition**: We say that the function $f$ is ***ddefined recursively*** if the value of $f$ at $1$ is specified and if for each positive integer $n$ a rule is provided for determining $f(n+1)$ from $f(n)$.
 
+## 1.4 The Fibonacci Numbers
+* **Definition**: The ***Fibonacci sequence*** is defined recursively by $f_1 = 1, f_2 = 1$, and $f_n = f_{n-1} + f_{n-2}$ for $n\geq 3$. The terms of this sequence are called the ***Fibonacci numbers***.
+* **Theorem**: Let $n$ be a positive integer and let $\alpha = \frac{1+\sqrt5}2$ and $\beta = \frac{1-\sqrt5}2$. Then the $n$th Fibonacci number $f_n$ is given by
+$$f_n = \frac1{\sqrt5}(\alpha^n - \beta^n).$$
+
+## 1.5 Divisibility
+* **Definition**: If $a$ and $b$ are integers with $a \neq 0$, we say that $a$ ***divides*** $b$ if there is an integer $c$ such that $b = ac$. If $a$ divides $b$, we also say that $a$ is a ***divisor*** or ***factor*** of $b$ and that $b$ is a ***multiple*** of $a$.
+* **Theorem**: If $a,b$ and $c$ are integers with $a|b$ and $b|c$, then $a|c$.
+* **Theorem**: If $a,b,m$ and $n$ are integers, and if $c|a$ and $c|b$, then $c|(ma + nb)$.  
+#### The Division Algorithm
+* **Theorem**: If $a$ and $b$ are integers such that $b > 0$, then there are unique integers $q$ and $r$ such that $a = bq + r$ with $0 \leq r < b$.  
+### Greastest Common Divisors
+* **Definition**: The ***greastest common divisor*** of two integers $a$ and $b$, which are not both $0$, is the largest integer that divides both $a$ and $b$.  
+* **Definition**: The integers $a$ and $b$, with $a\neq 0$ and $b\neq 0$, are ***relatively prime*** if $a$ and $b$ have greastest common divisor $(a,b)=1$.  
+----
+# 2. Integer Representations and Operations
+
 
