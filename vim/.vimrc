@@ -1,6 +1,6 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Maintainer: 
-"       Amir Salihefendic â€” @amix3k
+"       Amir Salihefendic ¡ª @amix3k
 "
 " Awesome_version:
 "       Get this config, nice color schemes and lots of plugins!
@@ -139,13 +139,8 @@ if $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
 
-try
-    colorscheme desert
-catch
-endtry
 
 set background=dark
-
 " Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
@@ -190,6 +185,7 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
+set nolinebreak "È¡Ïû×Ô¶¨ÒåÕÛĞĞ
 
 
 """"""""""""""""""""""""""""""
@@ -262,10 +258,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 """"""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
-
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -382,50 +374,75 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
+""""""""""""""""""""""""""""""""""""""""""""""
+" =>custom
+""""""""""""""""""""""""""""""""""""""""""""""
 set number
+set encoding=utf-8
+set iminsert=2
+
+set guifont=Monaco:h11,Consolas:h10,Courier_New:h11:cANSI,DroidSansMono\ Nerd\ Font:h11
+set guifontwide=Fixedsys:h12,Microsoft\ Yahei\ Mono:h10,youyuan:h10
+
+"---------------------------------------
+" =>À¨ºÅÒıºÅ²¹È«
+"---------------------------------------
+" inoremap ( ()<Esc>i
+" inoremap [ []<Esc>i
+" inoremap {<CR> {<CR>}<Esc>i
+" inoremap ' ''<Esc>i
+"---------------END---------------------
 
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Quickly Run
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-map <F5> :call CompileRun()<CR>
-
-func! CompileRun()
-    exec "w"
-    if &filetype == 'c'
-        exec '!g++ % -o %<'
-        exec '!time ./%<'
-    elseif &filetype == 'cpp'
-        exec '!g++ % -o %<'
-        exec '!time ./%<'
-    elseif &filetype == 'python'
-        exec '!python %'
-    elseif &filetype == 'sh'
-        :!time bash %
-    endif
-endfunc
-
-" Plug
-call plug#begin()
+"""""""""""""""""""""""""""""""""""
+" => vim-plug
+"""""""""""""""""""""""""""""""""""
+set rtp +=~\.vim
+call plug#begin('~\.vim\plugged')
     Plug 'scrooloose/nerdtree'
 
+    " markdown
     Plug 'iamcco/mathjax-support-for-mkdp'
     Plug 'iamcco/markdown-preview.vim'
-    Plug 'morhetz/gruvbox'
-    Plug 'valloric/youcompleteme'
-    Plug 'airblade/vim-gitgutter'
+    " Plug 'plasticboy/vim-markdown'
+    " ´úÂëÔËĞĞ
+    Plug 'skywind3000/asyncrun.vim'
+    
+    " ×¢ÊÍ´úÂë¿é
+    Plug 'preservim/nerdcommenter'
+    " ×´Ì¬À¸ÃÀ»¯
+    Plug 'vim-airline/vim-airline'
+    Plug 'flazz/vim-colorschemes'
+    " À¨ºÅ²¹È«²å¼ş
+    Plug 'jiangmiao/auto-pairs'
+    
+    " C++ Óï·¨¸ßÁÁ
+    Plug 'octol/vim-cpp-enhanced-highlight'
+    Plug 'ycm-core/youcompleteme'
+    " All of your Plugins must be added before the following line
 call plug#end()
+let g:airline#extensions#tabline#enabled = 1
 
-
-" NERDTree config
+""""""""""""""""""""""""""""""""""""""""
+" =>NERDTree config
+""""""""""""""""""""""""""""""""""""""""
 map <F2> :NERDTreeToggle<CR>
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") &&b:NERDTreeType == "primary") | q | endif
-autocmd VimEnter * NERDTree
+let g:NERDTreeWinSize = 25          " windowsize setting
+" let NERDTreeShowBookmarks=1  " ¿ªÆôNerdtreeÊ±×Ô¶¯ÏÔÊ¾Bookmarks
+" µ±NERDTreeÎªÊ£ÏÂµÄÎ¨Ò»´°¿ÚÊ±×Ô¶¯¹Ø±Õ
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" ÉèÖÃÊ÷µÄÏÔÊ¾Í¼±ê
+" let g:NERDTreeShowLineNumbers=1  " ÊÇ·ñÏÔÊ¾ĞĞºÅ
+let g:NERDTreeHidden=0     "²»ÏÔÊ¾Òş²ØÎÄ¼ş
+" Making it prettier
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 
-" Markdown
-let g:mkdp_path_to_chrome = ""
+"-------------------------------------------------------
+" =>MarkdownPreview config
+"-------------------------------------------------------
+let g:mkdp_path_to_chrome = ''
 " Path to the chrome or the command to open chrome (or other modern browsers).
 " If set, g:mkdp_browserfunc would be ignored.
 
@@ -465,47 +482,67 @@ imap <silent> <F8> <Plug>MarkdownPreview
 nmap <silent> <F9> <Plug>StopMarkdownPreview
 " for insert mode
 imap <silent> <F9> <Plug>StopMarkdownPreview
+"----------------------END markdown preview--------------
 
 
-" YCM
+"-------------------------------------------
+" =>asyncRun
+"-------------------------------------------
+" Quickly Run
+map <F5> :call CompileRun()<CR>
 
-let g:ycm_global_ycm_extra_conf='~/.vim/plugged/youcompleteme/.ycm_extra_conf.py'
-" è·³è½¬å¿«æ·é”®
-nnoremap <c-k> :YcmCompleter GoToDeclaration<CR>|
-nnoremap <c-h> :YcmCompleter GoToDefinition<CR>| 
-nnoremap <c-j> :YcmCompleter GoToDefinitionElseDeclaration<CR>|
-" åœæ­¢æç¤ºæ˜¯å¦è½½å…¥æœ¬åœ°ycm_extra_confæ–‡ä»¶
-let g:ycm_confirm_extra_conf = 0
-" è¯­æ³•å…³é”®å­—è¡¥å…¨
-let g:ycm_seed_identifiers_with_syntax = 1
-" å¼€å¯ YCM åŸºäºæ ‡ç­¾å¼•æ“
-let g:ycm_collect_identifiers_from_tags_files = 1
-" ä»ç¬¬2ä¸ªé”®å…¥å­—ç¬¦å°±å¼€å§‹ç½—åˆ—åŒ¹é…é¡¹
-let g:ycm_min_num_of_chars_for_completion=2
-" åœ¨æ³¨é‡Šè¾“å…¥ä¸­ä¹Ÿèƒ½è¡¥å…¨
-let g:ycm_complete_in_comments = 1
-" åœ¨å­—ç¬¦ä¸²è¾“å…¥ä¸­ä¹Ÿèƒ½è¡¥å…¨
-let g:ycm_complete_in_strings = 1
-" æ³¨é‡Šå’Œå­—ç¬¦ä¸²ä¸­çš„æ–‡å­—ä¹Ÿä¼šè¢«æ”¶å…¥è¡¥å…¨
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
-" å¼¹å‡ºåˆ—è¡¨æ—¶é€‰æ‹©ç¬¬1é¡¹çš„å¿«æ·é”®(é»˜è®¤ä¸º<TAB>å’Œ<Down>)
-let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
-" å¼¹å‡ºåˆ—è¡¨æ—¶é€‰æ‹©å‰1é¡¹çš„å¿«æ·é”®(é»˜è®¤ä¸º<S-TAB>å’Œ<UP>)
-let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
-" ä¸»åŠ¨è¡¥å…¨, é»˜è®¤ä¸º<C-Space>
-"let g:ycm_key_invoke_completion = ['<C-Space>']
-" åœæ­¢æ˜¾ç¤ºè¡¥å…¨åˆ—è¡¨(é˜²æ­¢åˆ—è¡¨å½±å“è§†é‡), å¯ä»¥æŒ‰<C-Space>é‡æ–°å¼¹å‡º
-"let g:ycm_key_list_stop_completion = ['<C-y>']
-
-" gruvbox --colortheme
-colorscheme gruvbox
-set background=dark
+func! CompileRun()
+    exec "w"
+    if &filetype == 'c'
+        exec '!g++ % -o %<'
+    elseif &filetype == 'cpp'
+        exec '!g++ -O3 % -o %<'
+        exec 'AsyncRun -mode=term -pos=bottom -rows=5 -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT)"'
+    elseif &filetype == 'python'
+        exec 'AsyncRun -mode=term -pos=bottom -rows=5 python "$(VIM_FILEPATH)"'
+    elseif &filetype == 'sh'
+        :!time bash %
+    endif
+endfunc
 
 
-" gitgutter
-nmap ]h <Plug>(GitGutterNextHunk)
-nmap [h <Plug>(GitGutterPrevHunk)
-nmap <leader>hp <Plug>(GitGutterPreviewHunk)
-nmap <leader>hs <Plug>(GitGutterStageHunk)
-nmap <leader>hu <Plug>(GitGutterUndoHunk)
+"-------------------------------------------
+" =>colorscheme
+"-------------------------------------------
+try
+    colorscheme molokai
+catch
+endtry
 
+"-------------------------------------------
+" =>nerdcomment
+"-------------------------------------------
+let mapleader=","
+set timeout timeoutlen=1500
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Set a language to use its alternate delimiters by default
+let g:NERDAltDelims_java = 1
+
+" Add your own custom formats or override the defaults
+" let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
+"
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not 
+let g:NERDToggleCheckAllLines = 1
+"----------------END nerdcommenter----------
